@@ -11,10 +11,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'leegao_notetag',                      # Or path to database file if using sqlite3.
+        'USER': 'leegao_notetag',                      # Not used with sqlite3.
+        'PASSWORD': 'd6a4245d',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -77,7 +77,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'notetag.urls'
 
-TEMPLATE_DIRS = ('C:/Users/Lee/PycharmProjects/notetag/templates',)
+import os
+TEMPLATE_DIRS = ('C:/Users/Lee/PycharmProjects/notetag/templates','/home/leegao/webapps/notetag/notetag/templates')
 
 INSTALLED_APPS = (
     'django.contrib.auth',

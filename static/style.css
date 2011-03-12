@@ -1,0 +1,286 @@
+html, body {
+	margin:0px; padding:0px;
+	font-family: Lucida Sans, Arial, Sans-serif;
+	height: 100%;
+	color:#2d3536;
+	text-decoration: none;
+	background:#e8e0c0 url(images/background.png) repeat;
+}
+
+h1 {
+	font-family: Lucida Sans, Arial, Sans-serif;
+	font-size: 25px;
+	text-align: left;
+}
+
+#desc {
+	text-align; left;
+}
+
+#entry {
+	margin-left: 1em;
+}
+
+#main {
+	width: 800px;
+	min-height: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url('/static/images/bgbig.png');
+	background-repeat: repeat-y;
+}
+
+
+#content {
+	text-align: center;
+}
+
+#pretentious {
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 10px;
+	margin-bottom: 0;
+	
+	font-size: 20px;
+}
+
+#login {
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 5%;
+	background: #a4a5a5;
+ 	border-top:1px solid #777777; 
+}
+
+ #wrapper{
+                margin:0;
+				padding:0;
+				text-align:left;
+				width:100%;
+            }
+            #title{
+                width: 700px;
+				height: 112px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 0px;
+				padding-top: 3em;
+				margin-bottom: 0;
+				padding-bottom: 0;
+				-border-bottom: 0px solid #333;
+				zoom: 1;
+				overflow:visible;
+            }
+            #title img{
+                width: 120px;
+                height:120px;
+            }
+            #title a{
+                font-size: 20px;
+				text-decoration: none;
+            }
+            #title span{
+                margin-left: 20px;
+            }
+
+            #container{
+                width: 720px;
+				height: 132px;
+				
+				margin-left: auto;
+				margin-right: auto;
+				padding-top:1em;
+                padding-bottom:1em;
+				margin-top: -80px;
+				margin-bottom: 20px;
+				border-bottom: 0px solid #333;
+				zoom: 1;
+				overflow:visible;
+                background-color:#eef;
+                border-radius: 5px;
+                -border: solid 3px #cce;
+            }
+
+            #controls{
+                width: 120px;
+				margin-left: auto;
+				margin-right: auto;
+                
+				padding: 0px;
+                padding-left: 15px;
+				padding-bottom: 1.5em;
+                margin-bottom: 10px;
+				--border-bottom: 0px solid #333;
+				overflow:visible;
+                float: left;
+            }
+            #play a.button{
+                background-image: url(http://a1.soundcloud.com/images/player-large-buttons.png);
+                display:block;
+                width: 90px;
+                height: 95px;
+                -overflow: hidden;
+                margin-bottom: 10px;
+            }
+            #play a:hover.button{
+                background-position: 99px 0;
+            }
+
+            #play a.pause.button{
+                background-position: 0 101px;
+            }
+
+            #play a:hover.pause.button{
+                background-position: 99px 101px;
+            }
+            #playtime{
+                font-size: 15px;
+            }
+
+
+            #player{
+                width: 580px;
+				height: 112px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 0px;
+                float: right;
+                height: 112px;
+            }
+            #waveform img{
+                margin-top: 0;
+                margin-bottom: 0;
+                height: 100px;
+                width: 560px;
+                background-color: #abc;
+                background-color: #445;
+                background-image: url(http://a1.soundcloud.com/images/player-overlay.png);
+                border-radius: 5px 5px 0 0;
+                box-shadow: 0 2px 5px #889;
+            }
+            #cbar{
+                margin-top: 0px;
+                margin-bottom: 0;
+                height: 25px;
+                width: 560px;
+                background-color: #abc;
+                background-color: #39F;
+                background-image: url(http://a1.soundcloud.com/images/player-horizontal-repeat.png);
+                border-radius:0 0px 5px 5px;
+                -box-shadow: 0 2px 5px #889;
+                cursor:pointer;
+            }
+
+
+            #waveform .slider{
+                margin-top: -105px;
+                margin-bottom: 0;
+                height: 100px;
+                width: 560px;
+               background:none;
+                border: none;
+            }
+            #waveform .ui-slider-handle{
+                margin-top:3px;
+                height: 100px;
+                width: 3px;
+                margin-left: 0px;
+                background: #F50;
+            }
+
+ #transcripts{
+                width: 720px;
+
+				margin-left: auto;
+				margin-right: auto;
+				padding-top:1em;
+                padding-bottom:1em;
+     margin-bottom: 30px;
+				border-bottom: 0px solid #333;
+				zoom: 1;
+				overflow:visible;
+                padding: 10px;
+                 box-shadow: 0 0 10px #cde;
+                 background-color:#bcd;
+     opacity: 0.7;
+ }
+
+#transcripts .head{
+    font-size: 12px;
+    text-shadow: 0 0 5px #aaa;
+}
+
+#transcripts p{
+    padding: 5px;
+}
+
+#transcripts .head span{
+    cursor: pointer;
+}
+
+ #comments{
+                width: 720px;
+
+				margin-left: auto;
+				margin-right: auto;
+				padding-top:1em;
+                padding-bottom:1em;
+				border-bottom: 0px solid #333;
+				zoom: 1;
+				overflow:visible;
+                padding: 10px;
+                 box-shadow: 0 0 10px #fff;
+                 background-color:#f8f8f8;
+ }
+
+#comments .head{
+    font-size: 12px;
+    text-shadow: 0 0 5px #aaa;
+}
+
+#comments p{
+    padding: 5px;
+}
+
+#comments ul li{
+    list-style:none;
+    margin: 10px 0px;
+    text-shadow: 0 0 5px #aaa;
+}
+
+a.do{
+    display:block;
+}
+
+#cbarhelper{
+    width: 100px;
+    height: 200px;
+}
+
+.com{
+    font-size: 10px;
+    margin-top: -23px;
+    background-color: #567;
+    color: #fff;
+    cursor:pointer;
+    border-radius: 3px;
+    padding: 5px;
+    padding-bottom: 2px;
+    line-height: 10px;
+    border: solid 1px #666;
+    box-shadow: 0 0 5px #fff;
+}
+
+.c2{
+    background-color:#def !important;
+    color:#000 !important;
+}

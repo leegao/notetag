@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block script %}
+            total_time = {{ time }};
+            cur_time = 0;
+            playing = false;
+            adv_id = 0;
+            bookmarks = {{ c }};
+    {% autoescape off %}
+            annotations = {{ a }};
+            transcripts = {{ b }};
+    {% endautoescape %}
+            ts = {};
+            t2 = 0;
+            document.onmousemove=function (e)
+            {
+                ev = e;
+                evx =ev.clientX, evy = ev.clientY;
+            }
+
+            function time_to_str(time){
+                return ""+Math.floor((time%3600)/60)+":"+Math.floor(time%60);
+            }
+
+            function advance(){
+                if (!adv_id) return;
+                v=$("#aud")[0].currentTime;
+                $.each(transcripts, function(){
+    console.log(v, this);
+                    if (Math.floor(v) == this[0] && !ts[this[0]]) {
+                        $("#transcripts").append("<p>"+time_to_str(this[0])+ " - " + this[1] + "<p>");
+                        ts[Math.floor(v)] = true;
+                    }
+                });
+                $("#waveform .slider").slider("value",v);
+                $("#curtime").text(time_to_str(v));
+            }
+
+            $(document).ready(function(){
+                $(".do-annotate").button().click(function(){$.post("/annotate/{{ id  }}/", {data:$("#txt").val(),t:Math.floor(t2)})});
+                $(".do-trans").button().click(function(){ $.post("/transcribe/{{ id  }}/", {data:$("#txt").val(),t:Math.floor(t2)}) });
+
+                $.each(annotations, function(){
+                    var lol = "<div class='com' style='position:absolute;'>...</div>";
+                    var t = this[1];
+                    $("#comments ul").append("<li>" +time_to_str(this[0]) + ": " + t + "</li>");
+                    $("#player").append($(lol).click(function(){$("<div>"+t+"</div>").dialog()}).css("left",$("#player").offset().left+Math.floor((560)*this[0]/total_time)+"px"));
+                });
+
+$.each(bookmarks, function(){
+                    var lol = "<div class='com c2' style='position:absolute;'>...</div>";
+                    $("#player").append($(lol).css("left",$("#player").offset().left+Math.floor((560)*this/total_time)+"px"));
+                });
+
+
+                $("#play a").click(function(){
+                    $(this).toggleClass("pause");
+                    if (playing = !playing){
+                        $("#aud")[0].play();
+                        adv_id = setInterval("advance()", 500);
+                    }else{
+                        $("#aud")[0].pause();
+                        clearInterval(adv_id);
+                        adv_id = 0;
+                    }
+                });
+                $("#cbar").click(function(){
+                    t2 = evx - $("#waveform").offset().left;
+                    t2 = t2*total_time/560
+                    $("#cbarhelper").dialog();
+                });
+                $("#waveform .slider").slider({max:total_time, stop:function(){
+                    $("#aud")[0].currentTime = $("#waveform .slider").slider("value");
+                    console.log("wtf");
+                    //$("#aud").jPlayer("playHead", 10);
+                }});
+                $("#waveform, #cbar").mousemove(function(){
+                    x = evx;
+                    var t = x - $("#waveform").offset().left;
+                    $("#lol").css("left",x).text(time_to_str(t*total_time/560));
+                    $("#lol2").css("left",x);
+                }).mouseover(function(){$("#lol").css("display", "block");$("#lol2").css("display", "block");})
+                        .mouseout(function(){$("#lol").css("display", "none");$("#lol2").css("display", "none")});
+            });
+{% endblock %}
+
+{% block main %}
+	<div id="audiobox">
+	<div id="wrapper">
+
+            <div id="title">
+
+                <a href="base.html#">{{ name }}</a>
+            </div>
+
+            <div id="container">
+                <div id="controls">
+                    <div id="play"><a href="base.html#" class="button"></a></div>
+                    <audio src="/audio/{{ id }}.mp3" id="aud" preload="auto"></audio>
+                    <div id="playtime"><span id="curtime">00:00:00</span> / <span id="tottime">4:00:00</span></div>
+                </div>
+
+                <div id="player">
+                    <div id="waveform">
+                        <div id="lol" style="position:absolute;margin-top:-20px;display:none;background-color:#fff;">lol</div>
+                        <div id="lol2" style="position:absolute;height:100px;display:block;background-color:#f50;width:1px;"></div>
+                        <img src="http://waveforms.soundcloud.com/N5f5pq9nZSsg_m.png"/>
+                        <div style="position:absolute" class="slider"></div>
+                    </div>
+                    <div id="slider" style="position:absolute"></div>
+                    <div id="cbar">
+
+                    </div>
+                    <div id="cbarhelper" style="display:none;">
+                        <textarea id="txt">Add an annotation or transcription</textarea>
+                        <a href="base.html#" class="do-annotate do">Annotate</a>
+                        <a href="base.html#" class="do-trans do">Transcribe</a>
+                    </div>
+                </div>
+            </div>
+
+        <div id="transcripts">
+                <div class="head">Transcripts <span>[+]</span></div>
+{#                <p>0:50 - Blah blah blah blah blah blah blah blah blah blah blah blah blah.</p>#}
+        </div>
+
+        <div id="comments">
+                <div class="head">Comments</div>
+                <ul>
+                </ul>
+        </div>
+        </div>
+{% endblock %}

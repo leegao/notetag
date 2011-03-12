@@ -1,0 +1,223 @@
+<html>
+    <head>
+        <style>
+            #wrapper{
+                margin:0;
+				padding:0;
+				text-align:left;
+				width:100%;
+            }
+            #title{
+                width: 1000px;
+				height: 112px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 0px;
+				padding-top: 1em;
+				-border-bottom: 0px solid #333;
+				zoom: 1;
+				overflow:visible;
+            }
+            #title img{
+                width: 120px;
+                height:120px;
+            }
+            #title a{
+                font-size: 30px;
+            }
+            #title span{
+                margin-left: 20px;
+            }
+
+            #container{
+                width: 1000px;
+				height: 132px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 1em;
+				border-bottom: 0px solid #333;
+				zoom: 1;
+				overflow:visible;
+                background-color:#eef;
+                border-radius: 5px;
+                -border: solid 3px #cce;
+            }
+
+            #controls{
+                width: 120px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 0px;
+				padding-bottom: 1.5em;
+                margin-bottom: 10px;
+				--border-bottom: 0px solid #333;
+				overflow:visible;
+                float: left;
+            }
+            #play a.button{
+                background-image: url(http://a1.soundcloud.com/images/player-large-buttons.png);
+                display:block;
+                width: 90px;
+                height: 95px;
+                -overflow: hidden;
+                margin-bottom: 10px;
+            }
+            #play a:hover.button{
+                background-position: 99px 0;
+            }
+
+            #play a.pause.button{
+                background-position: 0 101px;
+            }
+
+            #play a:hover.pause.button{
+                background-position: 99px 101px;
+            }
+            #playtime{
+                font-size: 15px;
+            }
+
+
+            #player{
+                width: 880px;
+				height: 112px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 0px;
+                float: right;
+                height: 112px;
+            }
+            #waveform img{
+                margin-top: 0;
+                margin-bottom: 0;
+                height: 100px;
+                width: 870px;
+                background-color: #abc;
+                background-color: #445;
+                background-image: url(http://a1.soundcloud.com/images/player-overlay.png);
+                border-radius: 5px 5px 0 0;
+                box-shadow: 0 2px 5px #889;
+            }
+            #cbar{
+                margin-top: 0px;
+                margin-bottom: 0;
+                height: 25px;
+                width: 870px;
+                background-color: #abc;
+                background-color: #39F;
+                background-image: url(http://a1.soundcloud.com/images/player-horizontal-repeat.png);
+                border-radius:0 0px 5px 5px;
+                -box-shadow: 0 2px 5px #889;
+            }
+            #waveform .slider{
+                margin-top: -105px;
+                margin-bottom: 0;
+                height: 100px;
+                width: 870px;
+               background:none;
+                border: none;
+            }
+            #waveform .ui-slider-handle{
+                margin-top:3px;
+                height: 100px;
+                width: 3px;
+                margin-left: 0px;
+                background: #F50;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/static/jquery.jplayer.min.js"></script>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script>
+            total_time = 232;
+            cur_time = 0;
+            playing = false;
+            adv_id = 0;
+
+            document.onmousemove=function (e)
+            {
+                ev = e;
+                evx =ev.clientX, evy = ev.clientY;
+            }
+
+            function time_to_str(time){
+                return ""+Math.floor((time%3600)/60)+":"+Math.floor(time%60);
+            }
+
+            function advance(){
+                if (!adv_id) return;
+                v=$("#aud")[0].currentTime;
+                $("#waveform .slider").slider("value",v);
+                $("#curtime").text(time_to_str(v));
+            }
+            
+            $(document).ready(function(){
+                //total_time = $("#aud")[0].duration;
+                $("#tottime").text(time_to_str(total_time));
+//                $("#aud").jPlayer({
+//                    ready: function(){
+//                        $(this).jPlayer("setMedia", {wav:"/static/test.wav"});
+//                    },
+//                    swfPath: "/static",
+//                    supplied: "wav"
+//                        });
+                $("#play a").click(function(){
+                    $(this).toggleClass("pause");
+                    if (playing = !playing){
+                        $("#aud")[0].play();
+                        adv_id = setInterval("advance()", 500);
+                    }else{
+                        $("#aud")[0].pause();
+                        clearInterval(adv_id);
+                        adv_id = 0;
+                    }
+                });
+                $("#waveform .slider").slider({max:total_time, stop:function(){
+                    $("#aud")[0].currentTime = $("#waveform .slider").slider("value");
+                    console.log("wtf");
+                    //$("#aud").jPlayer("playHead", 10);
+                }});
+                $("#waveform").mousemove(function(){
+                    x = evx;
+                    var t = x - $("#waveform").offset().left;
+                    $("#lol").css("left",x).text(time_to_str(t*total_time/870));
+                    $("#lol2").css("left",x);
+                }).mouseover(function(){$("#lol").css("display", "block");$("#lol2").css("display", "block");})
+                        .mouseout(function(){$("#lol").css("display", "none");$("#lol2").css("display", "none")});
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+
+            <div id="title">
+                
+                <a href="#">Audio Name</a>
+                <span>Uploaded by ... 2 days ago</span>
+            </div>
+
+            <div id="container">
+                <div id="controls">
+                    <div id="play"><a href="#" class="button"></a></div>
+                    <audio src="/static/test1.mp3" id="aud" preload="auto"></audio>
+                    <div id="playtime"><span id="curtime">00:00:00</span> / <span id="tottime">4:00:00</span></div>
+                </div>
+
+                <div id="player">
+                    <div id="waveform">
+                        <div id="lol" style="position:absolute;margin-top:-20px;display:none;background-color:#fff;">lol</div>
+                        <div id="lol2" style="position:absolute;height:100px;display:block;background-color:#f50;width:1px;"></div>
+                        <img src="http://waveforms.soundcloud.com/N5f5pq9nZSsg_m.png"/>
+                        <div style="position:absolute" class="slider"></div>
+                    </div>
+                    <div id="cbar">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="slider"></div>
+    </body>
+</html>

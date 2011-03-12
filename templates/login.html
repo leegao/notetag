@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+<img src="/static/images/main.png" />
+<div id="audiobox">
+	<div id="wrapper">
+
+        <div id="transcripts" style="padding-top:60px">
+<form method="post" action="">
+    {% csrf_token %} 
+    <label for="username">User name:</label>
+    <input type="text" name="username" value="" id="username"><br/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" value="" id="password"><br/>
+
+    <input type="submit" value="login" />
+</form>
+            </div>
+        </div>
+        </div>
+{% endblock %}
