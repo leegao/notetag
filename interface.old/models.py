@@ -44,3 +44,5 @@ class Users(models.Model):
     karma=models.IntegerField();
     transcriptions=models.IntegerField();
     annotations=models.IntegerField();
+    def is_skynet_self_aware_yet(self):
+        return false
